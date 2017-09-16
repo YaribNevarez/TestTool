@@ -24,9 +24,15 @@ private slots:
 
     void on_read_button_clicked();
 
-    void timed_read(void);
+    void on_timed_read(void);
 
     void on_checkBox_stateChanged(int arg1);
+
+    void on_horizontalSlider_sliderMoved(int position);
+
+    void on_input_editingFinished();
+
+    void on_finished(int result);
 
 private:
     Ui::DeviceForm * ui;

@@ -10,10 +10,16 @@ DeviceForm::DeviceForm(QWidget *parent) :
     timer = new QTimer(this);
     timer->setInterval(25);
 
-    connect(timer, SIGNAL(timeout()), this, SLOT(timed_read()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_timed_read()));
+    connect(this, SIGNAL(finished(int)), this, SLOT(on_finished(int)));
 }
 
-void DeviceForm::timed_read(void)
+void DeviceForm::on_finished(int result)
+{
+    timer->stop();
+}
+
+void DeviceForm::on_timed_read(void)
 {
     on_read_button_clicked();
 }
@@ -55,4 +61,15 @@ void DeviceForm::on_checkBox_stateChanged(int arg1)
         timer->start();
     else
         timer->stop();
+}
+
+void DeviceForm::on_horizontalSlider_sliderMoved(int position)
+{
+    ui->input->setValue(position);
+    on_wrie_button_clicked();
+}
+
+void DeviceForm::on_input_editingFinished()
+{
+    on_wrie_button_clicked();
 }
