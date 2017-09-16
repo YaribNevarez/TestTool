@@ -2,6 +2,7 @@
 #define DEVICEFORM_H
 
 #include <QDialog>
+#include <QTimer>
 
 namespace Ui {
 class DeviceForm;
@@ -23,9 +24,14 @@ private slots:
 
     void on_read_button_clicked();
 
+    void timed_read(void);
+
+    void on_checkBox_stateChanged(int arg1);
+
 private:
-    Ui::DeviceForm *ui;
-    QString         device_name;
+    Ui::DeviceForm * ui;
+    QString          device_name;
+    QTimer         * timer;
 };
 
 #endif // DEVICEFORM_H

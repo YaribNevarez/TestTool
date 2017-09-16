@@ -7,6 +7,15 @@ DeviceForm::DeviceForm(QWidget *parent) :
     ui(new Ui::DeviceForm)
 {
     ui->setupUi(this);
+    timer = new QTimer(this);
+    timer->setInterval(25);
+
+    connect(timer, SIGNAL(timeout()), this, SLOT(timed_read()));
+}
+
+void DeviceForm::timed_read(void)
+{
+    on_read_button_clicked();
 }
 
 void DeviceForm::set_name(QString name)
@@ -36,5 +45,14 @@ void DeviceForm::on_read_button_clicked()
     {
         int value = ((MainWindow *)parent())->read_from_device(device_name);
         ui->output->display(value);
+        ui->progressBar->setValue(value);
     }
+}
+
+void DeviceForm::on_checkBox_stateChanged(int arg1)
+{
+    if (arg1)
+        timer->start();
+    else
+        timer->stop();
 }
